@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Lee Maidana | Área Comercial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e40af;
+            --secondary: #3b82f6;
+            --accent: #60a5fa;
+            --dark: #1e3a8a;
+            --light: #dbeafe;
+            --white: #ffffff;
+            --gray: #64748b;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--light) 0%, #f1f5f9 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            box-shadow: 0 10px 40px rgba(30, 64, 175, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: var(--white);
+            padding: 50px 40px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .photo-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid var(--white);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: var(--primary);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .name {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .title {
+            font-size: 1.3em;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95em;
+        }
+
+        .buttons-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-whatsapp {
+            background: var(--success);
+            color: var(--white);
+        }
+
+        .btn-whatsapp:hover {
+            background: #059669;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-pdf {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-pdf:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 8px;
+            height: 30px;
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+
+        .profile-text {
+            color: var(--gray);
+            line-height: 1.8;
+            font-size: 1.05em;
+            text-align: justify;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, var(--light) 0%, #f1f5f9 100%);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .skill-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+            border-left-color: var(--primary);
+        }
+
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .skill-text {
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .experience-item {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover {
+            box-shadow: 0 4px 15px rgba(30, 64, 175, 0.1);
+            transform: translateX(5px);
+        }
+
+        .job-title {
+            font-size: 1.3em;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .company {
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.05em;
+            margin-bottom: 5px;
+        }
+
+        .period {
+            color: var(--gray);
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .responsibilities {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .responsibilities li {
+            padding: 8px 0 8px 30px;
+            position: relative;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .responsibilities li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-size: 0.8em;
+        }
+
+        .education-item {
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--success);
+        }
+
+        .degree {
+            font-size: 1.2em;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .institution {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                font-size: 2em;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            .buttons-container {
+                display: none;
+            }
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="cv-content">
+        <div class="header">
+            <div class="photo-container">
+                <span>👤</span>
+                <!-- Reemplaza el span con: <img src="tu-foto.jpg" alt="Lee Maidana"> -->
+            </div>
+            <h1 class="name">LEE MAIDANA</h1>
+            <p class="title">Profesional del Área Comercial</p>
+            <div class="contact-info">
+                <div class="contact-item">📍 Posadas, Misiones, Argentina</div>
+                <div class="contact-item">📧 tu-email@ejemplo.com</div>
+                <div class="contact-item">📱 +54 9 XXX XXX-XXXX</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <section class="section">
+                <h2 class="section-title">Perfil Profesional</h2>
+                <p class="profile-text">
+                    Profesional comercial con sólida orientación a resultados y capacidad demostrada para 
+                    establecer relaciones estratégicas de negocio. Destaco por mi habilidad para identificar 
+                    oportunidades de mercado, desarrollar estrategias de prospección efectivas y generar 
+                    soluciones innovadoras ante desafíos comerciales. Mi enfoque proactivo y determinación 
+                    me permiten negociar exitosamente y cerrar ventas de alto valor, manteniendo siempre 
+                    un excelente clima con clientes y equipos de trabajo.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Habilidades Comerciales</h2>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-icon">🎯</div>
+                        <div class="skill-text">Orientación a Resultados</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🤝</div>
+                        <div class="skill-text">Negociación Efectiva</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">📊</div>
+                        <div class="skill-text">Análisis de Mercado</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🔍</div>
+                        <div class="skill-text">Prospección de Clientes</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">💼</div>
+                        <div class="skill-text">Gestión de Relaciones Comerciales</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">✅</div>
+                        <div class="skill-text">Cierre de Ventas</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">⚡</div>
+                        <div class="skill-text">Trabajo bajo Presión</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-icon">🎭</div>
+                        <div class="skill-text">Resolución de Conflictos</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Experiencia Profesional</h2>
+                <div class="experience-item">
+                    <div class="job-title">Ejecutivo Comercial</div>
+                    <div class="company">Empresa Comercial - Posadas, Misiones</div>
+                    <div class="period">Enero 2020 - Presente</div>
+                    <ul class="responsibilities">
+                        <li>Desarrollo y ejecución de estrategias de ventas que incrementaron la cartera de clientes en un 35%</li>
+                        <li>Gestión integral de relaciones comerciales con clientes corporativos de alto valor</li>
+                        <li>Negociación de contratos y acuerdos comerciales estratégicos</li>
+                        <li>Análisis de mercado para identificación de oportunidades de negocio</li>
+                        <li>Superación consistente de objetivos comerciales trimestrales</li>
+                    </ul>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">Asesor Comercial</div>
+                    <div class="company">Empresa del Sector - Posadas, Misiones</div>
+                    <div class="period">Marzo 2018 - Diciembre 2019</div>
+                    <ul class="responsibilities">
+                        <li>Prospección y captación de nuevos clientes en la región</li>
+                        <li>Atención personalizada y seguimiento postventa</li>
+                        <li>Elaboración de propuestas comerciales adaptadas a necesidades específicas</li>
+                        <li>Participación en ferias y eventos comerciales</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Formación Académica</h2>
+                <div class="education-item">
+                    <div class="degree">Licenciatura en Comercialización / Administración</div>
+                    <div class="institution">Universidad de [Nombre] - Posadas, Misiones</div>
+                    <div class="period">2014 - 2018</div>
+                </div>
+                <div class="education-item">
+                    <div class="degree">Curso de Técnicas Avanzadas de Ventas</div>
+                    <div class="institution">Instituto de Capacitación Comercial</div>
+                    <div class="period">2020</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2 class="section-title">Información Adicional</h2>
+                <ul class="responsibilities">
+                    <li>Disponibilidad para viajar dentro y fuera de la provincia</li>
+                    <li>Manejo de herramientas CRM y software de gestión comercial</li>
+                    <li>Licencia de conducir categoría B</li>
+                    <li>Conocimientos de Microsoft Office (Excel, PowerPoint, Word)</li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <div class="buttons-container">
+        <button class="btn btn-whatsapp" onclick="openWhatsApp()">
+            💬 WhatsApp
+        </button>
+        <button class="btn btn-pdf" onclick="downloadPDF()">
+            📄 Descargar PDF
+        </button>
+    </div>
+
+    <script>
+        function openWhatsApp() {
+            // Reemplaza con tu número de WhatsApp (código país + número sin espacios ni guiones)
+            const phoneNumber = '5493764XXXXXX'; // Ejemplo: 5493764123456
+            const message = '¡Hola! Me interesa tu perfil profesional. Me gustaría conversar sobre oportunidades laborales.';
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('cv-content');
+            const buttons = document.querySelector('.buttons-container');
+            
+            // Ocultar botones temporalmente
+            buttons.style.display = 'none';
+            
+            const opt = {
+                margin: 0,
+                filename: 'CV_Lee_Maidana_Comercial.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Mostrar botones nuevamente
+                buttons.style.display = 'flex';
+            });
+        }
+
+        // Animación de entrada suave
+        window.addEventListener('load', () => {
+            document.querySelector('.container').style.animation = 'fadeIn 0.8s ease-in';
+        });
+    </script>
+</body>
+</html>
